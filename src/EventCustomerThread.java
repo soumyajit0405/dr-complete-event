@@ -26,6 +26,7 @@ class EventCustomerThread implements Runnable {
 
 	public void run() {
 		try {
+			System.out.println("Inside Event Customer Thread "+customerId+eventCustomerMapping+startTime+eventId);
 		ScheduleDAO sdc= new ScheduleDAO();
 			ArrayList<HashMap<String,Object>> listOfCustomerData=sdc.getEventCustomerData(customerId,eventCustomerMapping, eventId);
 			//Invoke node Api

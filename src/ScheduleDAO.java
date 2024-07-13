@@ -32,14 +32,14 @@ public class ScheduleDAO {
 //		 System.out.println(query1);
 //		 PreparedStatement pstmt1=con.prepareStatement(query1);
 //		 pstmt1.executeUpdate();
-		 String query2="update event_customer_mapping set event_customer_status_id=8 where event_customer_status_id = 13 and event_id in "
-		 		+ "  (select event_id from  all_events where event_end_time ='"+date+" "+time+"' and event_type_id = 2)";
-		 
 //		 String query2="update event_customer_mapping set event_customer_status_id=8 where event_customer_status_id = 13 and event_id in "
-//			 		+ "  (select event_id from  all_events where event_end_time ='2021-01-25 06:45:00' and event_type_id = 2)";
-//			 
-		 PreparedStatement  pstmt2=ScheduleDAO.con.prepareStatement(query2); 
-		 pstmt2.execute();
+//		 		+ "  (select event_id from  all_events where event_end_time ='"+date+" "+time+"' and event_type_id = 2)";
+//		 
+////		 String query2="update event_customer_mapping set event_customer_status_id=8 where event_customer_status_id = 13 and event_id in "
+////			 		+ "  (select event_id from  all_events where event_end_time ='2021-01-25 06:45:00' and event_type_id = 2)";
+////			 
+//		 PreparedStatement  pstmt2=ScheduleDAO.con.prepareStatement(query2); 
+//		 pstmt2.execute();
 		 System.out.println("After query 1");
 		//	System.out.println("select aso.sell_order_id,ubc.private_key,ubc.public_key,abc.order_id from all_sell_orders aso,all_blockchain_orders abc, user_blockchain_keys ubc where aso.transfer_start_ts ='"+date+" "+time+"' and abc.general_order_id=aso.sell_order_id and abc.order_type='SELL_ORDER' and ubc.user_id  = aso.seller_id and aso.order_status_id=1");
 		 // String query="select aso.sell_order_id,ubc.private_key,ubc.public_key,abc.order_id,abc.all_blockchain_orders_id from all_sell_orders aso,all_blockchain_orders abc, user_blockchain_keys ubc where aso.transfer_start_ts ='"+date+" "+time+"' and abc.general_order_id=aso.sell_order_id and abc.order_type='SELL_ORDER' and ubc.user_id  = aso.seller_id and aso.order_status_id=3";
@@ -167,6 +167,7 @@ public class ScheduleDAO {
 				con = JDBCConnection.getOracleConnection();
 			}
 			String query = "select customer_id,event_customer_mapping_id from event_customer_mapping where event_id="+eventId +" and  event_customer_status_id=13";
+			System.out.println("Query event customer "+query);
 			pstmt = con.prepareStatement(query);
 			// pstmt.setString(1,controllerId);
 			ResultSet rs = pstmt.executeQuery();
@@ -176,7 +177,8 @@ public class ScheduleDAO {
 				 data.put("eventCustomerMapping",(rs.getInt("event_customer_mapping_id")));
 				customerList.add(data);
 			}
-			
+			System.out.println("Result set 1 size"+customerList.size());
+			System.out.println("Result set "+customerList.get(0).get("customerId"));
 			return customerList;
 
 		}
